@@ -1,0 +1,113 @@
+/******************************************************************************
+Carlos (Kal) Garcia
+8/30/2024
+Course: COP 3014-001: Programming 2
+Assignment #1
+Teacher: Tami Sorgente
+Description: I am calculating the total value of silver based on their value of
+the named year
+*******************************************************************************/
+#include <iomanip>
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+
+
+	string name, userResponse;
+	double silverPrice = 29.50, dollarValue, year, nickel, dime, quarter, totalNickels, totalDimes, totalQuarters,
+	       totalCoins;
+	cout << "Enter your first Name\n";
+	cin >> name;
+
+	cout.setf(ios::fixed);
+	cout.setf(ios::showpoint);
+	cout.precision(2);
+
+	cout << "Thank you " << name << " all calculations for the value of silver will be based on $" << silverPrice
+	     << " per ounce\n";
+
+	cout << "Enter Response: Y for yes, N to stop.\n";
+	cin >> userResponse;
+	do {
+		if (userResponse == "N" || userResponse == "n") {
+			cout << "Ohh, okay, see you later!" << endl;
+			break;
+		}
+		if (userResponse == "Y" || userResponse == "y") {
+			cout << "Enter Dollar Value: Nickel is 5, dime is 10, and quarter is 25, other numbers do not count: ";
+			cin >> dollarValue;
+			if (dollarValue == 5) {
+				cout << "Enter Year: ";
+				cin >> year;
+				if (year >= 1942 && year <= 1945)
+					nickel = 0.0563 * silverPrice;
+				else if (year < 1942) {
+					nickel = 0.9;
+				}
+				else {
+					nickel = 0.5;
+				}
+				cout << "The price of silver during " << year << " is " << nickel << endl;
+				totalNickels += nickel;
+			}
+			if (dollarValue == 10) {
+				cout << "Enter Year: ";
+				cin >> year;
+				if (year >= 1892 && year <= 1964)
+					dime = silverPrice * 0.0723;
+				else if (year < 1892) {
+					dime = 0.20;
+				}
+				else {
+					dime = 0.10;
+				}
+				cout << "The price of silver during " << year << " is " << dime << endl;
+				totalDimes += dime;
+			}
+			if (dollarValue == 25) {
+				cout << "Enter Year: ";
+				cin >> year;
+				if ((year >= 1892 && year <= 1930) || (year >= 1932 && year <= 1964)) {
+					quarter = silverPrice * 0.1808;
+				}
+				else if (year < 1892) {
+					quarter = 0.50;
+				}
+				else if (year == 1931) {
+					cout << "There were no quarters in 1931\n";
+				}
+				else {
+					quarter = 0.25;
+				}
+				cout << "The price of silver during " << year << " is " << quarter << endl;
+				totalQuarters += quarter;
+			}
+			if (dollarValue != 5 && dollarValue != 10 && dollarValue != 25) {
+				cout << "Wrong number, try again." << endl;
+			}
+		}
+		else {
+			cout << "Wrong input, try again" << endl;
+		}
+		cout << "Do you want to continue? Type Y if you want to continue, type N to stop and count the total coins\n";
+		cin >> userResponse;
+
+		if (userResponse == "N" || userResponse == "n") {
+			break;
+		}
+	} while(userResponse != "N" || userResponse != "n");
+	cout << setprecision(2);
+	totalCoins = totalNickels + totalDimes + totalQuarters;
+	cout << "Here are the total coins added up:" << endl;
+	cout << "Total nickels entered: $" << totalNickels << endl;
+	cout << "Total dimes entered: $" << totalDimes << endl;
+	cout << "Total quarters entered: $" << totalQuarters << endl;
+	cout << "Total coins entered: $" << totalCoins << endl;
+	cout << "THAT's ALL FOLKS" << endl;
+
+
+
+	return 0;
+}
